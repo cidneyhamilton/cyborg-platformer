@@ -38,9 +38,19 @@ namespace Cyborg.Platformer {
 			rb.velocity = new Vector2(deltaX, rb.velocity.y);
 			
 		}
+
+		bool IsJumping() {
+			// If pressing the jump toggles
+			if (Input.GetButtonDown("Jump") || Input.GetKeyUp(KeyCode.UpArrow)) {
+				// Only let the player jump if they are grounded
+				return GroundChecker.IsGrounded;
+			} else {
+				return false;
+			}
+		}
 		
 		void Jump() {
-			if (Input.GetButtonDown("Jump") && GroundChecker.IsGrounded) {
+			if (IsJumping()) {
 				rb.AddForce(Vector2.up * JumpForce);
 				
 				// Tie events to jumping
