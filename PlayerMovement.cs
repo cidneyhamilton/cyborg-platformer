@@ -67,6 +67,18 @@ namespace Cyborg.Platformer {
 			}
 		
 			animator.SetBool("isJumping", !isGrounded);
+
+			// Update jumping blend tree, if applicable
+			float vSpeed = 0.5f;
+			if (GroundChecker.IsJumpingInMidair()) {
+				if (rb.velocity.y < 0) {
+					vSpeed = 1f;
+				} else {
+					vSpeed = 0;
+				}
+			}
+			
+			animator.SetFloat("vSpeed", vSpeed);
 		}
 		
 		// Update the flip direction of the sprite
